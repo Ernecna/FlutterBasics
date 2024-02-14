@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_doc/ExamplePage.dart';
+import 'package:flutter_doc/Person.dart';
+import 'package:flutter_doc/StfulPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,103 +13,63 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo', // ARKAPLANDAKİ İSMİ VS
+      debugShowCheckedModeBanner: false, // DEBUG BANNER KAPAMA
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int counter = 0;
+
   @override
   Widget build(BuildContext context) {
-    var screeninfo = MediaQuery.of(context);
-    final double screenheight = screeninfo.size.height;
-    final double screenwidth = screeninfo.size.width;
-
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 179, 161, 211),
-          title: Text(widget.title),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text("HOMEPAGE"),
         ),
-        backgroundColor: Color.fromARGB(255, 30, 5, 100),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: EdgeInsets.all(screenheight / 100),
-                    child: SizedBox(
-                      width: screenwidth / 4,
-                      height: screenwidth / 4,
-                      child: Image.asset("img/logo.png"),
-                    )),
-                const TextField(
-                  decoration: InputDecoration(
-                      hintText: "Username",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0)))),
-                ),
-                const TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: "Password",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0)))),
-                ),
-                SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: ElevatedButton(
-                    child: Text(
-                      "ENTER",
-                      style: TextStyle(fontSize: screenheight / 55),
-                    ),
-                    onPressed: () {
-                      print("Entered Succesfully");
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.orange),
-                        textStyle:
-                            MaterialStateProperty.all(TextStyle(fontSize: 30))),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    print("CLİCK HELP");
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ExamplePage()));
                   },
-                  child: Text(
-                    "HELP",
-                    style: TextStyle(
-                      color: Colors.pink,
-                      fontWeight: FontWeight.bold,
-                      fontSize: screenwidth / 30,
-                    ),
-                  ),
-                )
-              ],
-            ),
+                  child: Text("Back")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StfulPage(
+                                  person: Person(
+                                      name: "Erencan",
+                                      age: 18,
+                                      length: 1811,
+                                      married: true),
+                                )));
+                  },
+                  child: Text("Next PageB")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                  child: Text("Homepage"))
+            ],
           ),
         ));
   }
